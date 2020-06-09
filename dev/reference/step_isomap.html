@@ -17,27 +17,35 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
+
+<!--optional theme-->
+<link href="../tidymodels.css" rel="stylesheet">
+
 
 
 
@@ -45,7 +53,7 @@
 <meta property="og:description" content="step_isomap creates a specification of a recipe
 step that will convert numeric data into one or more new
 dimensions." />
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="https://recipes.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -72,7 +80,7 @@ dimensions." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -87,9 +95,9 @@ dimensions." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">recipes</a>
-        <div class="info">
-          <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.8.9000</span>
+        <div class="info hidden-xs hidden-sm">
+          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.12.9000</span>
         </div>
       </div>
     </div>
@@ -138,7 +146,7 @@ dimensions." />
   <a href="../news/index.html">News</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/recipes">
+  <a href="https://github.com/tidymodels/recipes/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -325,27 +333,19 @@ https://github.com/gdkrmr</p>
 
   <span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='no'>im_trans</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>3</span>)
   <span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='no'>im_estimates</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: RSpectra</span></div><div class='output co'>#&gt; <span class='message'>2020-01-05 20:38:44: Isomap START</span></div><div class='output co'>#&gt; <span class='message'>2020-01-05 20:38:44: constructing knn graph</span></div><div class='output co'>#&gt; <span class='message'>2020-01-05 20:38:44: calculating geodesic distances</span></div><div class='output co'>#&gt; <span class='message'>2020-01-05 20:38:45: Classical Scaling</span></div><div class='output co'>#&gt; <span class='message'>2020-01-05 20:38:45: L-Isomap embed START</span></div><div class='output co'>#&gt; <span class='message'>2020-01-05 20:38:45: constructing knn graph</span></div><div class='output co'>#&gt; <span class='message'>2020-01-05 20:38:45: calculating geodesic distances</span></div><div class='output co'>#&gt; <span class='message'>2020-01-05 20:38:46: embedding</span></div><div class='output co'>#&gt; <span class='message'>2020-01-05 20:38:46: DONE</span></div><div class='output co'>#&gt; <span class='message'>2020-01-05 20:38:46: L-Isomap embed START</span></div><div class='output co'>#&gt; <span class='message'>2020-01-05 20:38:46: constructing knn graph</span></div><div class='output co'>#&gt; <span class='message'>2020-01-05 20:38:46: calculating geodesic distances</span></div><div class='output co'>#&gt; <span class='message'>2020-01-05 20:38:46: embedding</span></div><div class='output co'>#&gt; <span class='message'>2020-01-05 20:38:46: DONE</span></div><div class='img'><img src='step_isomap-1.png' alt='' width='768' height='552' /></div><div class='output co'>#&gt; # A tibble: 5 x 2
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: RSpectra</span></div><div class='output co'>#&gt; <span class='message'>2020-06-09 03:14:15: Isomap START</span></div><div class='output co'>#&gt; <span class='message'>2020-06-09 03:14:15: constructing knn graph</span></div><div class='output co'>#&gt; <span class='message'>2020-06-09 03:14:15: calculating geodesic distances</span></div><div class='output co'>#&gt; <span class='message'>2020-06-09 03:14:15: Classical Scaling</span></div><div class='output co'>#&gt; <span class='message'>2020-06-09 03:14:15: L-Isomap embed START</span></div><div class='output co'>#&gt; <span class='message'>2020-06-09 03:14:15: constructing knn graph</span></div><div class='output co'>#&gt; <span class='message'>2020-06-09 03:14:16: calculating geodesic distances</span></div><div class='output co'>#&gt; <span class='message'>2020-06-09 03:14:17: embedding</span></div><div class='output co'>#&gt; <span class='message'>2020-06-09 03:14:17: DONE</span></div><div class='output co'>#&gt; <span class='message'>2020-06-09 03:14:17: L-Isomap embed START</span></div><div class='output co'>#&gt; <span class='message'>2020-06-09 03:14:17: constructing knn graph</span></div><div class='output co'>#&gt; <span class='message'>2020-06-09 03:14:17: calculating geodesic distances</span></div><div class='output co'>#&gt; <span class='message'>2020-06-09 03:14:17: embedding</span></div><div class='output co'>#&gt; <span class='message'>2020-06-09 03:14:17: DONE</span></div><div class='img'><img src='step_isomap-1.png' alt='' width='768' height='552' /></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 2</span><span>
 #&gt;   terms    id          
-#&gt;   &lt;chr&gt;    &lt;chr&gt;       
-#&gt; 1 carbon   isomap_u8gfY
-#&gt; 2 hydrogen isomap_u8gfY
-#&gt; 3 oxygen   isomap_u8gfY
-#&gt; 4 nitrogen isomap_u8gfY
-#&gt; 5 sulfur   isomap_u8gfY</div><div class='input'># }
-</div></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       
+#&gt; </span><span style='color: #555555;'>1</span><span> carbon   isomap_u8gfY
+#&gt; </span><span style='color: #555555;'>2</span><span> hydrogen isomap_u8gfY
+#&gt; </span><span style='color: #555555;'>3</span><span> oxygen   isomap_u8gfY
+#&gt; </span><span style='color: #555555;'>4</span><span> nitrogen isomap_u8gfY
+#&gt; </span><span style='color: #555555;'>5</span><span> sulfur   isomap_u8gfY</div><div class='input'><span class='co'># }</span></div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

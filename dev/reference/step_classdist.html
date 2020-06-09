@@ -17,27 +17,35 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
+
+<!--optional theme-->
+<link href="../tidymodels.css" rel="stylesheet">
+
 
 
 
@@ -46,7 +54,7 @@
 recipe step that will convert numeric data into Mahalanobis
 distance measurements to the data centroid. This is done for
 each value of a categorical class variable." />
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="https://recipes.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -73,7 +81,7 @@ each value of a categorical class variable." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -88,9 +96,9 @@ each value of a categorical class variable." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">recipes</a>
-        <div class="info">
-          <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.8.9000</span>
+        <div class="info hidden-xs hidden-sm">
+          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.12.9000</span>
         </div>
       </div>
     </div>
@@ -139,7 +147,7 @@ each value of a categorical class variable." />
   <a href="../news/index.html">News</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/recipes">
+  <a href="https://github.com/tidymodels/recipes/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -180,6 +188,7 @@ each value of a categorical class variable.</p>
   <span class='kw'>pool</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>objects</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"classdist_"</span>,
   <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'><a href='rand_id.html'>rand_id</a></span>(<span class='st'>"classdist"</span>)
 )
@@ -243,6 +252,11 @@ the natural log function?</p></td>
 been trained by <code><a href='prep.html'>prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
+      <th>prefix</th>
+      <td><p>A character string that defines the naming convention for
+new distance columns. Defaults to <code>"classdist_"</code>. See Details below.</p></td>
+    </tr>
+    <tr>
       <th>skip</th>
       <td><p>A logical. Should the step be skipped when the
 recipe is baked by <code><a href='bake.html'>bake.recipe()</a></code>? While all operations are baked
@@ -273,7 +287,8 @@ the class), and <code>class</code>.</p>
     <p><code>step_classdist</code> will create a new column for every
 unique value of the <code>class</code> variable.
 The resulting variables will not replace the original values
-and have the prefix <code>classdist_</code>.</p>
+and by default have the prefix <code>classdist_</code>. The naming format can be
+changed using the <code>prefix</code> argument.</p>
 <p>Note that, by default, the default covariance function requires
 that each class should have at least as many rows as variables
 listed in the <code>terms</code> argument. If <code>pool = TRUE</code>,
@@ -285,6 +300,12 @@ overall.</p>
 <span class='co'># in case of missing data...</span>
 <span class='no'>mean2</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
+<span class='co'># define naming convention</span>
+<span class='no'>rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='recipe.html'>recipe</a></span>(<span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>step_classdist</span>(<span class='fu'><a href='has_role.html'>all_predictors</a></span>(), <span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"Species"</span>,
+                 <span class='kw'>pool</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mean_func</span> <span class='kw'>=</span> <span class='no'>mean2</span>, <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"centroid_"</span>)
+
+<span class='co'># default naming</span>
 <span class='no'>rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='recipe.html'>recipe</a></span>(<span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>step_classdist</span>(<span class='fu'><a href='has_role.html'>all_predictors</a></span>(), <span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"Species"</span>,
                  <span class='kw'>pool</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mean_func</span> <span class='kw'>=</span> <span class='no'>mean2</span>)
@@ -294,48 +315,43 @@ overall.</p>
 <span class='no'>dists_to_species</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bake.html'>bake</a></span>(<span class='no'>rec_dists</span>, <span class='kw'>new_data</span> <span class='kw'>=</span> <span class='no'>iris</span>, <span class='fu'>everything</span>())
 <span class='co'>## on log scale:</span>
 <span class='no'>dist_cols</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grep</a></span>(<span class='st'>"classdist"</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>dists_to_species</span>), <span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>dists_to_species</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Species"</span>, <span class='no'>dist_cols</span>)]</div><div class='output co'>#&gt; # A tibble: 150 x 4
+<span class='no'>dists_to_species</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Species"</span>, <span class='no'>dist_cols</span>)]</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 150 x 4</span><span>
 #&gt;    Species classdist_setosa classdist_versicolor classdist_virginica
-#&gt;    &lt;fct&gt;              &lt;dbl&gt;                &lt;dbl&gt;               &lt;dbl&gt;
-#&gt;  1 setosa            -0.800                 4.74                5.21
-#&gt;  2 setosa             0.733                 4.42                5.04
-#&gt;  3 setosa             0.250                 4.55                5.08
-#&gt;  4 setosa             0.534                 4.42                4.95
-#&gt;  5 setosa            -0.272                 4.79                5.22
-#&gt;  6 setosa             1.31                  4.79                5.21
-#&gt;  7 setosa             1.23                  4.56                5.04
-#&gt;  8 setosa            -1.07                  4.64                5.12
-#&gt;  9 setosa             1.10                  4.30                4.89
-#&gt; 10 setosa             1.16                  4.54                5.05
-#&gt; # … with 140 more rows</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='no'>rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>                </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>               </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> setosa            -</span><span style='color: #BB0000;'>0.800</span><span>                 4.74                5.21
+#&gt; </span><span style='color: #555555;'> 2</span><span> setosa             0.733                 4.42                5.04
+#&gt; </span><span style='color: #555555;'> 3</span><span> setosa             0.250                 4.55                5.08
+#&gt; </span><span style='color: #555555;'> 4</span><span> setosa             0.534                 4.42                4.95
+#&gt; </span><span style='color: #555555;'> 5</span><span> setosa            -</span><span style='color: #BB0000;'>0.272</span><span>                 4.79                5.22
+#&gt; </span><span style='color: #555555;'> 6</span><span> setosa             1.31                  4.79                5.21
+#&gt; </span><span style='color: #555555;'> 7</span><span> setosa             1.23                  4.56                5.04
+#&gt; </span><span style='color: #555555;'> 8</span><span> setosa            -</span><span style='color: #BB0000;'>1.07</span><span>                  4.64                5.12
+#&gt; </span><span style='color: #555555;'> 9</span><span> setosa             1.10                  4.30                4.89
+#&gt; </span><span style='color: #555555;'>10</span><span> setosa             1.16                  4.54                5.05
+#&gt; </span><span style='color: #555555;'># … with 140 more rows</span><span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='no'>rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 4</span><span>
 #&gt;   terms            value class id             
-#&gt;   &lt;chr&gt;            &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;          
-#&gt; 1 all_predictors()    NA &lt;NA&gt;  classdist_Mcz0G</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='no'>rec_dists</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 12 x 4
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          
+#&gt; </span><span style='color: #555555;'>1</span><span> all_predictors()    </span><span style='color: #BB0000;'>NA</span><span> </span><span style='color: #BB0000;'>NA</span><span>    classdist_wcZDL</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='no'>rec_dists</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 4</span><span>
 #&gt;    terms        value class      id             
-#&gt;    &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;          
-#&gt;  1 Sepal.Length 5.01  setosa     classdist_Mcz0G
-#&gt;  2 Sepal.Width  3.43  setosa     classdist_Mcz0G
-#&gt;  3 Petal.Length 1.46  setosa     classdist_Mcz0G
-#&gt;  4 Petal.Width  0.246 setosa     classdist_Mcz0G
-#&gt;  5 Sepal.Length 5.94  versicolor classdist_Mcz0G
-#&gt;  6 Sepal.Width  2.77  versicolor classdist_Mcz0G
-#&gt;  7 Petal.Length 4.26  versicolor classdist_Mcz0G
-#&gt;  8 Petal.Width  1.33  versicolor classdist_Mcz0G
-#&gt;  9 Sepal.Length 6.59  virginica  classdist_Mcz0G
-#&gt; 10 Sepal.Width  2.97  virginica  classdist_Mcz0G
-#&gt; 11 Petal.Length 5.55  virginica  classdist_Mcz0G
-#&gt; 12 Petal.Width  2.03  virginica  classdist_Mcz0G</div></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          
+#&gt; </span><span style='color: #555555;'> 1</span><span> Sepal.Length 5.01  setosa     classdist_wcZDL
+#&gt; </span><span style='color: #555555;'> 2</span><span> Sepal.Width  3.43  setosa     classdist_wcZDL
+#&gt; </span><span style='color: #555555;'> 3</span><span> Petal.Length 1.46  setosa     classdist_wcZDL
+#&gt; </span><span style='color: #555555;'> 4</span><span> Petal.Width  0.246 setosa     classdist_wcZDL
+#&gt; </span><span style='color: #555555;'> 5</span><span> Sepal.Length 5.94  versicolor classdist_wcZDL
+#&gt; </span><span style='color: #555555;'> 6</span><span> Sepal.Width  2.77  versicolor classdist_wcZDL
+#&gt; </span><span style='color: #555555;'> 7</span><span> Petal.Length 4.26  versicolor classdist_wcZDL
+#&gt; </span><span style='color: #555555;'> 8</span><span> Petal.Width  1.33  versicolor classdist_wcZDL
+#&gt; </span><span style='color: #555555;'> 9</span><span> Sepal.Length 6.59  virginica  classdist_wcZDL
+#&gt; </span><span style='color: #555555;'>10</span><span> Sepal.Width  2.97  virginica  classdist_wcZDL
+#&gt; </span><span style='color: #555555;'>11</span><span> Petal.Length 5.55  virginica  classdist_wcZDL
+#&gt; </span><span style='color: #555555;'>12</span><span> Petal.Width  2.03  virginica  classdist_wcZDL</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

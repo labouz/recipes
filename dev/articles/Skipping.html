@@ -12,14 +12,16 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
+<!--optional theme--><link href="../tidymodels.css" rel="stylesheet">
 <meta property="og:title" content="On Skipping Steps">
-<meta property="og:description" content="">
-<meta property="og:image" content="/logo.png">
+<meta property="og:description" content="recipes">
+<meta property="og:image" content="https://recipes.tidymodels.org/logo.png">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -33,7 +35,7 @@
   gtag('config', 'UA-115082821-1');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -47,9 +49,9 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">recipes</a>
-        <div class="info">
-          <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.8.9000</span>
+        <div class="info hidden-xs hidden-sm">
+          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.12.9000</span>
         </div>
       </div>
     </div>
@@ -98,7 +100,7 @@
   <a href="../news/index.html">News</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/recipes">
+  <a href="https://github.com/tidymodels/recipes/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -116,7 +118,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>On Skipping Steps</h1>
+      <h1 data-toc-skip>On Skipping Steps</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/tidymodels/recipes/blob/master/vignettes/Skipping.Rmd"><code>vignettes/Skipping.Rmd</code></a></small>
@@ -142,65 +144,78 @@
 <p>As an example of the second case, consider the problem of a <a href="https://github.com/topepo/useR2016">severe class imbalance</a>. Suppose that there are two classes to be predicted and the event of interest occurs in only 5% of the time. Many models will quickly optimize accuracy by overfitting to the majority class by predicting everything to be a non-event. One method to compensate for this is to <em>down-sample</em> the <strong>training set</strong> so that the class frequencies are about equal. Although somewhat counter-intuitive, this can often lead to better models.</p>
 <p>The important consideration is that this preprocessing is <em>only applied to the training set</em> so that it can impact the model fit. The test set should be unaffected by this operation. If the recipe is used to create the design matrix for the model, down-sampling would remove rows. This would be a bad idea for the test set since these data should represent what the population of samples looks like “in the wild.”. Based on this, a recipe that included down-sample should <em>skip</em> this step when data are baked for the test set.</p>
 </div>
+<div id="other-examples" class="section level1">
+<h1 class="hasAnchor">
+<a href="#other-examples" class="anchor"></a>Other Examples</h1>
+<p>There are other steps that have a default value of <code>skip = TRUE</code>:</p>
+<ul>
+<li>
+<code><a href="../reference/step_filter.html">step_filter()</a></code> allows for arbitrary filtering of rows.</li>
+<li>
+<code><a href="../reference/step_slice.html">step_slice()</a></code> also removes (or adds) rows to the data.</li>
+<li>
+<code><a href="../reference/step_sample.html">step_sample()</a></code> enables random sampling of the data set.</li>
+<li>
+<code><a href="../reference/step_naomit.html">step_naomit()</a></code> will remove rows with missing values in certain columns.</li>
+</ul>
+<p>The main issue with these steps being applied to new data (i.e. after the recipe has been trained) is that the non-outcome rows can become out-of-sync with the outcome data.</p>
+<p>For example, when <code><a href="../reference/bake.html">bake()</a></code> is run with <code><a href="../reference/step_naomit.html">step_naomit(skip = FALSE)</a></code> and their are missing values, the predictors will have fewer rows than the outcome vector. When model predictions are produced and merged with the other data, their will be discordant rows. In this case, it would be better to have missing values in the predictions and a full data set than a subset of predictions from the complete data. The <a href="https://tidymodels.github.io/model-implementation-principles/model-predictions.html">general rule</a> in tidymodels is that, for models,</p>
+<blockquote>
+<p>The return value is a tibble with the <strong>same number of rows</strong> as the data being predicted and in the same order.</p>
+</blockquote>
+</div>
 <div id="how-to-skip-steps" class="section level1">
 <h1 class="hasAnchor">
 <a href="#how-to-skip-steps" class="anchor"></a>How To Skip Steps</h1>
 <p>As of version recipes 0.1.2, each step has an optional logical argument called <code>skip</code>. In almost every case, the default is <code>FALSE</code>. When using this option:</p>
 <ul>
-<li>No steps are skipped during <code>prep</code>
+<li>No steps are skipped during <code><a href="../reference/prep.html">prep()</a></code>
 </li>
-<li>Steps with <code>skip = TRUE</code> are not applied to the data when <code>bake</code> is called</li>
+<li>Steps with <code>skip = TRUE</code> are not applied to the data when <code><a href="../reference/bake.html">bake()</a></code> is called</li>
 </ul>
-<p>Recall that there are two ways of getting the results for the training set with <code>recipes</code>. First, <code>bake</code> can be used as usual. Second, <code>juice</code> is a shortcut that will use the already processed data that is contained in the recipe when <code><a href="../reference/prep.html">prep(recipe, retain = TRUE)</a></code> is used. <code>juice</code> is much faster and would be the way to get the training set <em>with all of the steps applied to the data</em>. For this reason, you should almost always used <code>retain = TRUE</code> if any steps are skipped (and a warning is produced otherwise).</p>
+<p>Recall that there are two ways of getting the results for the training set with recipes. First, <code><a href="../reference/bake.html">bake()</a></code> can be used as usual. Second, <code><a href="../reference/juice.html">juice()</a></code> is a shortcut that will use the already processed data that is contained in the recipe when <code><a href="../reference/prep.html">prep(recipe, retain = TRUE)</a></code> is used. <code><a href="../reference/juice.html">juice()</a></code> is much faster and would be the way to get the training set <em>with all of the steps applied to the data</em>. For this reason, you should almost always used <code>retain = TRUE</code> if any steps are skipped (and a warning is produced otherwise).</p>
 </div>
 <div id="be-careful" class="section level1">
 <h1 class="hasAnchor">
 <a href="#be-careful" class="anchor"></a>Be Careful!</h1>
 <p>Skipping is a necessary feature but can be dangerous if used carelessly.</p>
 <p>As an example, skipping an operation whose variables are used later might be an issue:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(recipes)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">car_recipe &lt;-<span class="st"> </span><span class="kw"><a href="../reference/recipe.html">recipe</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/step_log.html">step_log</a></span>(disp, <span class="dt">skip =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/step_center.html">step_center</a></span>(<span class="kw"><a href="../reference/has_role.html">all_predictors</a></span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/prep.html">prep</a></span>(<span class="dt">training =</span> mtcars)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co"># These *should* produce the same results (as they do for `hp`)</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw"><a href="../reference/juice.html">juice</a></span>(car_recipe) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(disp, hp)</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; # A tibble: 6 x 2</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt;     disp    hp</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt; 1 -0.210 -36.7</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt; 2 -0.210 -36.7</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; 3 -0.603 -53.7</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt; 4  0.268 -36.7</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt; 5  0.601  28.3</span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt; 6  0.131 -41.7</span></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="kw"><a href="../reference/bake.html">bake</a></span>(car_recipe, <span class="dt">new_data =</span> mtcars) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(disp, hp)</a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt; # A tibble: 6 x 2</span></a>
-<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt;    disp    hp</span></a>
-<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="co">#&gt; 1  155. -36.7</span></a>
-<a class="sourceLine" id="cb1-23" data-line-number="23"><span class="co">#&gt; 2  155. -36.7</span></a>
-<a class="sourceLine" id="cb1-24" data-line-number="24"><span class="co">#&gt; 3  103. -53.7</span></a>
-<a class="sourceLine" id="cb1-25" data-line-number="25"><span class="co">#&gt; 4  253. -36.7</span></a>
-<a class="sourceLine" id="cb1-26" data-line-number="26"><span class="co">#&gt; 5  355.  28.3</span></a>
-<a class="sourceLine" id="cb1-27" data-line-number="27"><span class="co">#&gt; 6  220. -41.7</span></a></code></pre></div>
-<p>This should emphasize that <code>juice</code> should be used to get the training set values whenever a step is skipped.</p>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">recipes</span>)
+<span class="no">car_recipe</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/recipe.html">recipe</a></span>(<span class="no">mpg</span> ~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">mtcars</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_log.html">step_log</a></span>(<span class="no">disp</span>, <span class="kw">skip</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_center.html">step_center</a></span>(<span class="fu"><a href="../reference/has_role.html">all_predictors</a></span>()) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/prep.html">prep</a></span>(<span class="kw">training</span> <span class="kw">=</span> <span class="no">mtcars</span>)
+
+<span class="co"># These *should* produce the same results (as they do for `hp`)</span>
+<span class="fu"><a href="../reference/juice.html">juice</a></span>(<span class="no">car_recipe</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>() <span class="kw">%&gt;%</span> <span class="fu">select</span>(<span class="no">disp</span>, <span class="no">hp</span>)
+<span class="co">#&gt; # A tibble: 6 x 2</span>
+<span class="co">#&gt;     disp    hp</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 -0.210 -36.7</span>
+<span class="co">#&gt; 2 -0.210 -36.7</span>
+<span class="co">#&gt; 3 -0.603 -53.7</span>
+<span class="co">#&gt; 4  0.268 -36.7</span>
+<span class="co">#&gt; 5  0.601  28.3</span>
+<span class="co">#&gt; 6  0.131 -41.7</span>
+<span class="fu"><a href="../reference/bake.html">bake</a></span>(<span class="no">car_recipe</span>, <span class="kw">new_data</span> <span class="kw">=</span> <span class="no">mtcars</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>() <span class="kw">%&gt;%</span> <span class="fu">select</span>(<span class="no">disp</span>, <span class="no">hp</span>)
+<span class="co">#&gt; # A tibble: 6 x 2</span>
+<span class="co">#&gt;    disp    hp</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1  155. -36.7</span>
+<span class="co">#&gt; 2  155. -36.7</span>
+<span class="co">#&gt; 3  103. -53.7</span>
+<span class="co">#&gt; 4  253. -36.7</span>
+<span class="co">#&gt; 5  355.  28.3</span>
+<span class="co">#&gt; 6  220. -41.7</span></pre></body></html></div>
+<p>This should emphasize that <code><a href="../reference/juice.html">juice()</a></code> should be used to get the training set values whenever a step is skipped.</p>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#example-class-imbalance-sampling-and-skipping-steps">Example: Class Imbalance Sampling and Skipping Steps</a></li>
-      <li><a href="#how-to-skip-steps">How To Skip Steps</a></li>
-      <li><a href="#be-careful">Be Careful!</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 

@@ -17,27 +17,35 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
+
+<!--optional theme-->
+<link href="../tidymodels.css" rel="stylesheet">
+
 
 
 
@@ -45,7 +53,7 @@
 <meta property="og:description" content="step_naomit creates a specification of a recipe step that
 will add remove observations (rows of data) if they contain NA
 or NaN values." />
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="https://recipes.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -72,7 +80,7 @@ or NaN values." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -87,9 +95,9 @@ or NaN values." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">recipes</a>
-        <div class="info">
-          <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.8.9000</span>
+        <div class="info hidden-xs hidden-sm">
+          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.12.9000</span>
         </div>
       </div>
     </div>
@@ -138,7 +146,7 @@ or NaN values." />
   <a href="../news/index.html">News</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/recipes">
+  <a href="https://github.com/tidymodels/recipes/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -215,8 +223,9 @@ be populated (eventually) by the <code>terms</code> argument.</p></td>
 recipe is baked by <code><a href='bake.html'>bake.recipe()</a></code>? While all operations are baked
 when <code><a href='prep.html'>prep.recipe()</a></code> is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using <code>skip = TRUE</code> as it may affect
-the computations for subsequent operations</p></td>
+Care should be taken when using <code>skip = FALSE</code>; in most instances that
+affect the rows of the data being predicted, this step probably should not
+be applied.</p></td>
     </tr>
     <tr>
       <th>id</th>
@@ -241,31 +250,26 @@ new step added to the sequence of existing steps (if any).</p>
 <span class='fu'><a href='recipe.html'>recipe</a></span>(<span class='no'>Ozone</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>airquality</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>step_naomit</span>(<span class='no'>Solar.R</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='prep.html'>prep</a></span>(<span class='no'>airquality</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='juice.html'>juice</a></span>()</div><div class='output co'>#&gt; # A tibble: 146 x 6
+  <span class='fu'><a href='juice.html'>juice</a></span>()</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 146 x 6</span><span>
 #&gt;    Solar.R  Wind  Temp Month   Day Ozone
-#&gt;      &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt;  1     190   7.4    67     5     1    41
-#&gt;  2     118   8      72     5     2    36
-#&gt;  3     149  12.6    74     5     3    12
-#&gt;  4     313  11.5    62     5     4    18
-#&gt;  5     299   8.6    65     5     7    23
-#&gt;  6      99  13.8    59     5     8    19
-#&gt;  7      19  20.1    61     5     9     8
-#&gt;  8     194   8.6    69     5    10    NA
-#&gt;  9     256   9.7    69     5    12    16
-#&gt; 10     290   9.2    66     5    13    11
-#&gt; # … with 136 more rows</div><div class='input'>
-</div></pre>
+#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>     190   7.4    67     5     1    41
+#&gt; </span><span style='color: #555555;'> 2</span><span>     118   8      72     5     2    36
+#&gt; </span><span style='color: #555555;'> 3</span><span>     149  12.6    74     5     3    12
+#&gt; </span><span style='color: #555555;'> 4</span><span>     313  11.5    62     5     4    18
+#&gt; </span><span style='color: #555555;'> 5</span><span>     299   8.6    65     5     7    23
+#&gt; </span><span style='color: #555555;'> 6</span><span>      99  13.8    59     5     8    19
+#&gt; </span><span style='color: #555555;'> 7</span><span>      19  20.1    61     5     9     8
+#&gt; </span><span style='color: #555555;'> 8</span><span>     194   8.6    69     5    10    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'> 9</span><span>     256   9.7    69     5    12    16
+#&gt; </span><span style='color: #555555;'>10</span><span>     290   9.2    66     5    13    11
+#&gt; </span><span style='color: #555555;'># … with 136 more rows</span><span></div><div class='input'>
+</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
