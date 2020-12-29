@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Scaling Numeric Data — step_scale • recipes</title>
+<title>Impute Nominal Data Using the Most Common Value — step_impute_mode • recipes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,10 +49,10 @@
 
 
 
-<meta property="og:title" content="Scaling Numeric Data — step_scale" />
-<meta property="og:description" content="step_scale creates a specification of a recipe
-step that will normalize numeric data to have a standard
-deviation of one." />
+<meta property="og:title" content="Impute Nominal Data Using the Most Common Value — step_impute_mode" />
+<meta property="og:description" content="step_impute_mode creates a specification of a
+recipe step that will substitute missing values of nominal
+variables by the training set mode of those variables." />
 <meta property="og:image" content="https://recipes.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -164,30 +164,38 @@ deviation of one." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Scaling Numeric Data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/recipes/blob/master/R/scale.R'><code>R/scale.R</code></a></small>
-    <div class="hidden name"><code>step_scale.Rd</code></div>
+    <h1>Impute Nominal Data Using the Most Common Value</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/recipes/blob/master/R/impute_mode.R'><code>R/impute_mode.R</code></a></small>
+    <div class="hidden name"><code>step_impute_mode.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>step_scale</code> creates a <em>specification</em> of a recipe
-step that will normalize numeric data to have a standard
-deviation of one.</p>
+    <p><code>step_impute_mode</code> creates a <em>specification</em> of a
+recipe step that will substitute missing values of nominal
+variables by the training set mode of those variables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_scale</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>step_impute_mode</span><span class='op'>(</span>
   <span class='va'>recipe</span>,
   <span class='va'>...</span>,
   role <span class='op'>=</span> <span class='cn'>NA</span>,
   trained <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  sds <span class='op'>=</span> <span class='cn'>NULL</span>,
-  factor <span class='op'>=</span> <span class='fl'>1</span>,
-  na_rm <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  modes <span class='op'>=</span> <span class='cn'>NULL</span>,
   skip <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  id <span class='op'>=</span> <span class='fu'><a href='rand_id.html'>rand_id</a></span><span class='op'>(</span><span class='st'>"scale"</span><span class='op'>)</span>
+  id <span class='op'>=</span> <span class='fu'><a href='rand_id.html'>rand_id</a></span><span class='op'>(</span><span class='st'>"impute_mode"</span><span class='op'>)</span>
 <span class='op'>)</span>
 
-<span class='co'># S3 method for step_scale</span>
+<span class='fu'>step_modeimpute</span><span class='op'>(</span>
+  <span class='va'>recipe</span>,
+  <span class='va'>...</span>,
+  role <span class='op'>=</span> <span class='cn'>NA</span>,
+  trained <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  modes <span class='op'>=</span> <span class='cn'>NULL</span>,
+  skip <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  id <span class='op'>=</span> <span class='fu'><a href='rand_id.html'>rand_id</a></span><span class='op'>(</span><span class='st'>"impute_mode"</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for step_impute_mode</span>
 <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -216,22 +224,9 @@ created.</p></td>
 preprocessing have been estimated.</p></td>
     </tr>
     <tr>
-      <th>sds</th>
-      <td><p>A named numeric vector of standard deviations. This
-is <code>NULL</code> until computed by <code><a href='prep.html'>prep.recipe()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>factor</th>
-      <td><p>A numeric value of either 1 or 2 that scales the
-numeric inputs by one or two standard deviations. By dividing
-by two standard deviations, the coefficients attached to
-continuous predictors can be interpreted the same way as with
-binary inputs. Defaults to <code>1</code>. More in reference below.</p></td>
-    </tr>
-    <tr>
-      <th>na_rm</th>
-      <td><p>A logical value indicating whether <code>NA</code>
-values should be removed when computing the standard deviation.</p></td>
+      <th>modes</th>
+      <td><p>A named character vector of modes. This is
+<code>NULL</code> until computed by <code><a href='prep.html'>prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -248,7 +243,7 @@ the computations for subsequent operations</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>A <code>step_scale</code> object.</p></td>
+      <td><p>A <code>step_impute_mode</code> object.</p></td>
     </tr>
     </table>
 
@@ -257,76 +252,69 @@ the computations for subsequent operations</p></td>
     <p>An updated version of <code>recipe</code> with the new step
 added to the sequence of existing steps (if any). For the
 <code>tidy</code> method, a tibble with columns <code>terms</code> (the
-selectors or variables selected) and <code>value</code> (the
-standard deviations).</p>
+selectors or variables selected) and <code>model</code> (the mode
+value).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Scaling data means that the standard deviation of a
-variable is divided out of the data. <code>step_scale</code> estimates
-the variable standard deviations from the data used in the
-<code>training</code> argument of <code>prep.recipe</code>.
-<code>bake.recipe</code> then applies the scaling to new data sets
-using these standard deviations.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Gelman, A. (2007) "Scaling regression inputs by
-dividing by two standard deviations." Unpublished. Source:
-<a href='http://www.stat.columbia.edu/~gelman/research/unpublished/standardizing.pdf'>http://www.stat.columbia.edu/~gelman/research/unpublished/standardizing.pdf</a>.</p>
+    <p><code>step_impute_mode</code> estimates the variable modes
+from the data used in the <code>training</code> argument of
+<code>prep.recipe</code>. <code>bake.recipe</code> then applies the new
+values to new data sets using these values. If the training set
+data has more than one mode, one is selected at random.</p>
+<p>As of <code>recipes</code> 0.1.16, this function name changed from <code>step_modeimpute()</code>
+to <code>step_impute_mode()</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://modeldata.tidymodels.org'>modeldata</a></span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>biomass</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"credit_data"</span><span class='op'>)</span>
 
-<span class='va'>biomass_tr</span> <span class='op'>&lt;-</span> <span class='va'>biomass</span><span class='op'>[</span><span class='va'>biomass</span><span class='op'>$</span><span class='va'>dataset</span> <span class='op'>==</span> <span class='st'>"Training"</span>,<span class='op'>]</span>
-<span class='va'>biomass_te</span> <span class='op'>&lt;-</span> <span class='va'>biomass</span><span class='op'>[</span><span class='va'>biomass</span><span class='op'>$</span><span class='va'>dataset</span> <span class='op'>==</span> <span class='st'>"Testing"</span>,<span class='op'>]</span>
+<span class='co'>## missing data per column</span>
+<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>vapply</a></span><span class='op'>(</span><span class='va'>credit_data</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>num <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       Status    Seniority         Home         Time          Age      Marital 
+#&gt; 0.0000000000 0.0000000000 0.0013471037 0.0000000000 0.0000000000 0.0002245173 
+#&gt;      Records          Job     Expenses       Income       Assets         Debt 
+#&gt; 0.0000000000 0.0004490346 0.0000000000 0.0855410867 0.0105523125 0.0040413112 
+#&gt;       Amount        Price 
+#&gt; 0.0000000000 0.0000000000 </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>342</span><span class='op'>)</span>
+<span class='va'>in_training</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>credit_data</span><span class='op'>)</span>, <span class='fl'>2000</span><span class='op'>)</span>
 
-<span class='va'>rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='recipe.html'>recipe</a></span><span class='op'>(</span><span class='va'>HHV</span> <span class='op'>~</span> <span class='va'>carbon</span> <span class='op'>+</span> <span class='va'>hydrogen</span> <span class='op'>+</span> <span class='va'>oxygen</span> <span class='op'>+</span> <span class='va'>nitrogen</span> <span class='op'>+</span> <span class='va'>sulfur</span>,
-              data <span class='op'>=</span> <span class='va'>biomass_tr</span><span class='op'>)</span>
+<span class='va'>credit_tr</span> <span class='op'>&lt;-</span> <span class='va'>credit_data</span><span class='op'>[</span> <span class='va'>in_training</span>, <span class='op'>]</span>
+<span class='va'>credit_te</span> <span class='op'>&lt;-</span> <span class='va'>credit_data</span><span class='op'>[</span><span class='op'>-</span><span class='va'>in_training</span>, <span class='op'>]</span>
+<span class='va'>missing_examples</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>14</span>, <span class='fl'>394</span>, <span class='fl'>565</span><span class='op'>)</span>
 
-<span class='va'>scaled_trans</span> <span class='op'>&lt;-</span> <span class='va'>rec</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>step_scale</span><span class='op'>(</span><span class='va'>carbon</span>, <span class='va'>hydrogen</span><span class='op'>)</span>
+<span class='va'>rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='recipe.html'>recipe</a></span><span class='op'>(</span><span class='va'>Price</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>credit_tr</span><span class='op'>)</span>
 
-<span class='va'>scaled_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='prep.html'>prep</a></span><span class='op'>(</span><span class='va'>scaled_trans</span>, training <span class='op'>=</span> <span class='va'>biomass_tr</span><span class='op'>)</span>
+<span class='va'>impute_rec</span> <span class='op'>&lt;-</span> <span class='va'>rec</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>step_impute_mode</span><span class='op'>(</span><span class='va'>Status</span>, <span class='va'>Home</span>, <span class='va'>Marital</span><span class='op'>)</span>
 
-<span class='va'>transformed_te</span> <span class='op'>&lt;-</span> <span class='fu'><a href='bake.html'>bake</a></span><span class='op'>(</span><span class='va'>scaled_obj</span>, <span class='va'>biomass_te</span><span class='op'>)</span>
+<span class='va'>imp_models</span> <span class='op'>&lt;-</span> <span class='fu'><a href='prep.html'>prep</a></span><span class='op'>(</span><span class='va'>impute_rec</span>, training <span class='op'>=</span> <span class='va'>credit_tr</span><span class='op'>)</span>
 
-<span class='va'>biomass_te</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>transformed_te</span><span class='op'>)</span><span class='op'>]</span>
-</div><div class='output co'>#&gt;    carbon hydrogen oxygen nitrogen sulfur    HHV
-#&gt; 15  46.35     5.67  47.20     0.30   0.22 18.275
-#&gt; 20  43.25     5.50  48.06     2.85   0.34 17.560
-#&gt; 26  42.70     5.50  49.10     2.40   0.30 17.173
-#&gt; 31  46.40     6.10  37.30     1.80   0.50 18.851
-#&gt; 36  48.76     6.32  42.77     0.20   0.00 20.547
-#&gt; 41  44.30     5.50  41.70     0.70   0.20 18.467
-#&gt; 46  38.94     5.23  54.13     1.19   0.51 15.095
-#&gt; 51  42.10     4.66  33.80     0.95   0.20 16.240
-#&gt; 55  29.20     4.40  31.10     0.14   4.90 11.147
-#&gt; 65  27.80     3.77  23.69     4.63   1.05 10.750</div><div class='input'><span class='va'>transformed_te</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 80 x 6</span><span>
-#&gt;    carbon hydrogen oxygen nitrogen sulfur   HHV
-#&gt;     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>   4.45     4.74   47.2     0.3    0.22  18.3
-#&gt; </span><span style='color: #555555;'> 2</span><span>   4.16     4.60   48.1     2.85   0.34  17.6
-#&gt; </span><span style='color: #555555;'> 3</span><span>   4.10     4.60   49.1     2.4    0.3   17.2
-#&gt; </span><span style='color: #555555;'> 4</span><span>   4.46     5.10   37.3     1.8    0.5   18.9
-#&gt; </span><span style='color: #555555;'> 5</span><span>   4.68     5.28   42.8     0.2    0     20.5
-#&gt; </span><span style='color: #555555;'> 6</span><span>   4.26     4.60   41.7     0.7    0.2   18.5
-#&gt; </span><span style='color: #555555;'> 7</span><span>   3.74     4.37   54.1     1.19   0.51  15.1
-#&gt; </span><span style='color: #555555;'> 8</span><span>   4.04     3.89   33.8     0.95   0.2   16.2
-#&gt; </span><span style='color: #555555;'> 9</span><span>   2.81     3.68   31.1     0.14   4.9   11.1
-#&gt; </span><span style='color: #555555;'>10</span><span>   2.67     3.15   23.7     4.63   1.05  10.8
-#&gt; </span><span style='color: #555555;'># … with 70 more rows</span><span></div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>scaled_trans</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 3</span><span>
-#&gt;   terms    value id         
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      
-#&gt; </span><span style='color: #555555;'>1</span><span> carbon      </span><span style='color: #BB0000;'>NA</span><span> scale_uY1pe
-#&gt; </span><span style='color: #555555;'>2</span><span> hydrogen    </span><span style='color: #BB0000;'>NA</span><span> scale_uY1pe</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>scaled_obj</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 3</span><span>
-#&gt;   terms    value id         
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      
-#&gt; </span><span style='color: #555555;'>1</span><span> carbon   10.4  scale_uY1pe
-#&gt; </span><span style='color: #555555;'>2</span><span> hydrogen  1.20 scale_uY1pe</div><div class='input'>
-</div></span></pre>
+<span class='va'>imputed_te</span> <span class='op'>&lt;-</span> <span class='fu'><a href='bake.html'>bake</a></span><span class='op'>(</span><span class='va'>imp_models</span>, new_data <span class='op'>=</span> <span class='va'>credit_te</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>credit_te</span><span class='op'>$</span><span class='va'>Home</span>, <span class='va'>imputed_te</span><span class='op'>$</span><span class='va'>Home</span>, useNA <span class='op'>=</span> <span class='st'>"always"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          
+#&gt;           ignore other owner parents priv rent &lt;NA&gt;
+#&gt;   ignore      13     0     0       0    0    0    0
+#&gt;   other        0   176     0       0    0    0    0
+#&gt;   owner        0     0  1171       0    0    0    0
+#&gt;   parents      0     0     0     436    0    0    0
+#&gt;   priv         0     0     0       0  135    0    0
+#&gt;   rent         0     0     0       0    0  519    0
+#&gt;   &lt;NA&gt;         0     0     4       0    0    0    0</div><div class='input'>
+<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>impute_rec</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 3</span><span>
+#&gt;   terms   model id               
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            
+#&gt; </span><span style='color: #555555;'>1</span><span> Status  </span><span style='color: #BB0000;'>NA</span><span>    impute_mode_Hlm2y
+#&gt; </span><span style='color: #555555;'>2</span><span> Home    </span><span style='color: #BB0000;'>NA</span><span>    impute_mode_Hlm2y
+#&gt; </span><span style='color: #555555;'>3</span><span> Marital </span><span style='color: #BB0000;'>NA</span><span>    impute_mode_Hlm2y</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>imp_models</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
+#&gt;   terms   model   id               
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            
+#&gt; </span><span style='color: #555555;'>1</span><span> Status  good    impute_mode_Hlm2y
+#&gt; </span><span style='color: #555555;'>2</span><span> Home    owner   impute_mode_Hlm2y
+#&gt; </span><span style='color: #555555;'>3</span><span> Marital married impute_mode_Hlm2y</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

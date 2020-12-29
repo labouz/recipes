@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Simple Value Assignments for Novel Factor Levels — step_novel • recipes</title>
+<title>Impute Numeric Data Below the Threshold of Measurement — step_impute_lower • recipes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,10 +49,12 @@
 
 
 
-<meta property="og:title" content="Simple Value Assignments for Novel Factor Levels — step_novel" />
-<meta property="og:description" content="step_novel creates a specification of a recipe
-step that will assign a previously unseen factor level to a
-new value." />
+<meta property="og:title" content="Impute Numeric Data Below the Threshold of Measurement — step_impute_lower" />
+<meta property="og:description" content="step_impute_lower creates a specification of a recipe step
+designed for cases where the non-negative numeric data cannot be
+measured below a known value. In these cases, one method for
+imputing the data is to substitute the truncated value by a
+random uniform number between zero and the truncation point." />
 <meta property="og:image" content="https://recipes.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -164,29 +166,40 @@ new value." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Simple Value Assignments for Novel Factor Levels</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/recipes/blob/master/R/novel.R'><code>R/novel.R</code></a></small>
-    <div class="hidden name"><code>step_novel.Rd</code></div>
+    <h1>Impute Numeric Data Below the Threshold of Measurement</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/recipes/blob/master/R/impute_lower.R'><code>R/impute_lower.R</code></a></small>
+    <div class="hidden name"><code>step_impute_lower.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>step_novel</code> creates a <em>specification</em> of a recipe
-step that will assign a previously unseen factor level to a
-new value.</p>
+    <p><code>step_impute_lower</code> creates a <em>specification</em> of a recipe step
+designed for cases where the non-negative numeric data cannot be
+measured below a known value. In these cases, one method for
+imputing the data is to substitute the truncated value by a
+random uniform number between zero and the truncation point.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_novel</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>step_impute_lower</span><span class='op'>(</span>
   <span class='va'>recipe</span>,
   <span class='va'>...</span>,
   role <span class='op'>=</span> <span class='cn'>NA</span>,
   trained <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  new_level <span class='op'>=</span> <span class='st'>"new"</span>,
-  objects <span class='op'>=</span> <span class='cn'>NULL</span>,
+  threshold <span class='op'>=</span> <span class='cn'>NULL</span>,
   skip <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  id <span class='op'>=</span> <span class='fu'><a href='rand_id.html'>rand_id</a></span><span class='op'>(</span><span class='st'>"novel"</span><span class='op'>)</span>
+  id <span class='op'>=</span> <span class='fu'><a href='rand_id.html'>rand_id</a></span><span class='op'>(</span><span class='st'>"impute_lower"</span><span class='op'>)</span>
 <span class='op'>)</span>
 
-<span class='co'># S3 method for step_novel</span>
+<span class='fu'>step_lowerimpute</span><span class='op'>(</span>
+  <span class='va'>recipe</span>,
+  <span class='va'>...</span>,
+  role <span class='op'>=</span> <span class='cn'>NA</span>,
+  trained <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  threshold <span class='op'>=</span> <span class='cn'>NULL</span>,
+  skip <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  id <span class='op'>=</span> <span class='fu'><a href='rand_id.html'>rand_id</a></span><span class='op'>(</span><span class='st'>"impute_lower"</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for step_impute_lower</span>
 <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -200,9 +213,9 @@ sequence of operations for this recipe.</p></td>
     <tr>
       <th>...</th>
       <td><p>One or more selector functions to choose which
-variables that will be affected by the step. These variables
-should be character or factor types. See <code><a href='selections.html'>selections()</a></code> for more
-details. For the <code>tidy</code> method, these are not currently used.</p></td>
+variables are affected by the step. See <code><a href='selections.html'>selections()</a></code>
+for more details. For the <code>tidy</code> method, these are not
+currently used.</p></td>
     </tr>
     <tr>
       <th>role</th>
@@ -215,14 +228,9 @@ created.</p></td>
 preprocessing have been estimated.</p></td>
     </tr>
     <tr>
-      <th>new_level</th>
-      <td><p>A single character value that will be assigned
-to new factor levels.</p></td>
-    </tr>
-    <tr>
-      <th>objects</th>
-      <td><p>A list of objects that contain the information
-on factor levels that will be determined by <code><a href='prep.html'>prep.recipe()</a></code>.</p></td>
+      <th>threshold</th>
+      <td><p>A named numeric vector of lower bounds. This is
+<code>NULL</code> until computed by <code><a href='prep.html'>prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -239,7 +247,7 @@ the computations for subsequent operations</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>A <code>step_novel</code> object.</p></td>
+      <td><p>A <code>step_impute_lower</code> object.</p></td>
     </tr>
     </table>
 
@@ -248,58 +256,56 @@ the computations for subsequent operations</p></td>
     <p>An updated version of <code>recipe</code> with the new step
 added to the sequence of existing steps (if any). For the
 <code>tidy</code> method, a tibble with columns <code>terms</code> (the
-columns that will be affected) and <code>value</code> (the factor
-levels that is used for the new value)</p>
+selectors or variables selected) and <code>value</code> for the estimated
+threshold.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The selected variables are adjusted to have a new
-level (given by <code>new_level</code>) that is placed in the last
-position. During preparation there will be no data points
-associated with this new level since all of the data have been
-seen.</p>
-<p>Note that if the original columns are character, they will be
-converted to factors by this step.</p>
-<p>Missing values will remain missing.</p>
-<p>If <code>new_level</code> is already in the data given to <code>prep</code>, an error
-is thrown.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='step_factor2string.html'>step_factor2string()</a></code>, <code><a href='step_string2factor.html'>step_string2factor()</a></code>,
-<code><a href='names0.html'>dummy_names()</a></code>, <code><a href='step_regex.html'>step_regex()</a></code>, <code><a href='step_count.html'>step_count()</a></code>,
-<code><a href='step_ordinalscore.html'>step_ordinalscore()</a></code>, <code><a href='step_unorder.html'>step_unorder()</a></code>, <code><a href='step_other.html'>step_other()</a></code></p></div>
+    <p><code>step_impute_lower</code> estimates the variable minimums
+from the data used in the <code>training</code> argument of <code>prep.recipe</code>.
+<code>bake.recipe</code> then simulates a value for any data at the minimum
+with a random uniform value between zero and the minimum.</p>
+<p>As of <code>recipes</code> 0.1.16, this function name changed from <code>step_lowerimpute()</code>
+to <code>step_impute_lower()</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://modeldata.tidymodels.org'>modeldata</a></span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>okc</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/recipes'>recipes</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://modeldata.tidymodels.org'>modeldata</a></span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>biomass</span><span class='op'>)</span>
 
-<span class='va'>okc_tr</span> <span class='op'>&lt;-</span> <span class='va'>okc</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30000</span>,<span class='op'>]</span>
-<span class='va'>okc_te</span> <span class='op'>&lt;-</span> <span class='va'>okc</span><span class='op'>[</span><span class='fl'>30001</span><span class='op'>:</span><span class='fl'>30006</span>,<span class='op'>]</span>
-<span class='va'>okc_te</span><span class='op'>$</span><span class='va'>diet</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"cannibalism"</span>
-<span class='va'>okc_te</span><span class='op'>$</span><span class='va'>diet</span><span class='op'>[</span><span class='fl'>4</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"vampirism"</span>
+<span class='co'>## Truncate some values to emulate what a lower limit of</span>
+<span class='co'>## the measurement system might look like</span>
 
-<span class='va'>rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>diet</span> <span class='op'>+</span> <span class='va'>location</span>, data <span class='op'>=</span> <span class='va'>okc_tr</span><span class='op'>)</span>
+<span class='va'>biomass</span><span class='op'>$</span><span class='va'>carbon</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>biomass</span><span class='op'>$</span><span class='va'>carbon</span> <span class='op'>&gt;</span> <span class='fl'>40</span>, <span class='va'>biomass</span><span class='op'>$</span><span class='va'>carbon</span>, <span class='fl'>40</span><span class='op'>)</span>
+<span class='va'>biomass</span><span class='op'>$</span><span class='va'>hydrogen</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>biomass</span><span class='op'>$</span><span class='va'>hydrogen</span> <span class='op'>&gt;</span> <span class='fl'>5</span>, <span class='va'>biomass</span><span class='op'>$</span><span class='va'>carbon</span>, <span class='fl'>5</span><span class='op'>)</span>
 
-<span class='va'>rec</span> <span class='op'>&lt;-</span> <span class='va'>rec</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>step_novel</span><span class='op'>(</span><span class='va'>diet</span>, <span class='va'>location</span><span class='op'>)</span>
-<span class='va'>rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='prep.html'>prep</a></span><span class='op'>(</span><span class='va'>rec</span>, training <span class='op'>=</span> <span class='va'>okc_tr</span><span class='op'>)</span>
+<span class='va'>biomass_tr</span> <span class='op'>&lt;-</span> <span class='va'>biomass</span><span class='op'>[</span><span class='va'>biomass</span><span class='op'>$</span><span class='va'>dataset</span> <span class='op'>==</span> <span class='st'>"Training"</span>,<span class='op'>]</span>
+<span class='va'>biomass_te</span> <span class='op'>&lt;-</span> <span class='va'>biomass</span><span class='op'>[</span><span class='va'>biomass</span><span class='op'>$</span><span class='va'>dataset</span> <span class='op'>==</span> <span class='st'>"Testing"</span>,<span class='op'>]</span>
 
-<span class='va'>processed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='bake.html'>bake</a></span><span class='op'>(</span><span class='va'>rec</span>, <span class='va'>okc_te</span><span class='op'>)</span>
-<span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>old <span class='op'>=</span> <span class='va'>okc_te</span><span class='op'>$</span><span class='va'>diet</span>, new <span class='op'>=</span> <span class='va'>processed</span><span class='op'>$</span><span class='va'>diet</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 2</span><span>
-#&gt;   old               new              
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>            
-#&gt; </span><span style='color: #555555;'>1</span><span> vegetarian        vegetarian       
-#&gt; </span><span style='color: #555555;'>2</span><span> strictly anything strictly anything
-#&gt; </span><span style='color: #555555;'>3</span><span> cannibalism       new              
-#&gt; </span><span style='color: #555555;'>4</span><span> vampirism         new              
-#&gt; </span><span style='color: #555555;'>5</span><span> </span><span style='color: #BB0000;'>NA</span><span>                </span><span style='color: #BB0000;'>NA</span><span>               
-#&gt; </span><span style='color: #555555;'>6</span><span> </span><span style='color: #BB0000;'>NA</span><span>                </span><span style='color: #BB0000;'>NA</span><span>               </div><div class='input'>
-<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>rec</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='recipe.html'>recipe</a></span><span class='op'>(</span><span class='va'>HHV</span> <span class='op'>~</span> <span class='va'>carbon</span> <span class='op'>+</span> <span class='va'>hydrogen</span> <span class='op'>+</span> <span class='va'>oxygen</span> <span class='op'>+</span> <span class='va'>nitrogen</span> <span class='op'>+</span> <span class='va'>sulfur</span>,
+              data <span class='op'>=</span> <span class='va'>biomass_tr</span><span class='op'>)</span>
+
+<span class='va'>impute_rec</span> <span class='op'>&lt;-</span> <span class='va'>rec</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>step_impute_lower</span><span class='op'>(</span><span class='va'>carbon</span>, <span class='va'>hydrogen</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>impute_rec</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 3</span><span>
+#&gt;   terms    value id                
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             
+#&gt; </span><span style='color: #555555;'>1</span><span> carbon      </span><span style='color: #BB0000;'>NA</span><span> impute_lower_b4CM3
+#&gt; </span><span style='color: #555555;'>2</span><span> hydrogen    </span><span style='color: #BB0000;'>NA</span><span> impute_lower_b4CM3</div><div class='input'>
+<span class='va'>impute_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='prep.html'>prep</a></span><span class='op'>(</span><span class='va'>impute_rec</span>, training <span class='op'>=</span> <span class='va'>biomass_tr</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>impute_rec</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 3</span><span>
-#&gt;   terms    value id         
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      
-#&gt; </span><span style='color: #555555;'>1</span><span> diet     new   novel_Qw9rI
-#&gt; </span><span style='color: #555555;'>2</span><span> location new   novel_Qw9rI</div></span></pre>
+#&gt;   terms    value id                
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             
+#&gt; </span><span style='color: #555555;'>1</span><span> carbon      40 impute_lower_b4CM3
+#&gt; </span><span style='color: #555555;'>2</span><span> hydrogen     5 impute_lower_b4CM3</div><div class='input'>
+<span class='va'>transformed_te</span> <span class='op'>&lt;-</span> <span class='fu'><a href='bake.html'>bake</a></span><span class='op'>(</span><span class='va'>impute_rec</span>, <span class='va'>biomass_te</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/pkg/dimRed/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>transformed_te</span><span class='op'>$</span><span class='va'>carbon</span>, <span class='va'>biomass_te</span><span class='op'>$</span><span class='va'>carbon</span>,
+     ylab <span class='op'>=</span> <span class='st'>"pre-imputation"</span>, xlab <span class='op'>=</span> <span class='st'>"imputed"</span><span class='op'>)</span>
+</div><div class='img'><img src='step_impute_lower-1.png' alt='' width='768' height='552' /></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
