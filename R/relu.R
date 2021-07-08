@@ -22,8 +22,7 @@
 #'   transformations.
 #' @param columns A character string of variable names that will
 #'  be populated (eventually) by the `terms` argument.
-#' @return An updated version of `recipe` with the
-#'   new step added to the sequence of existing steps (if any).
+#' @template step-return
 #' @export
 #' @rdname step_relu
 #'
@@ -190,7 +189,7 @@ relu <- function(x, shift = 0, reverse = FALSE, smooth = FALSE) {
   out
 }
 
-#' @rdname step_relu
+#' @rdname tidy.recipe
 #' @param x A `step_relu` object.
 #' @export
 tidy.step_relu <- function(x, ...) {

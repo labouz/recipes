@@ -9,8 +9,7 @@
 #' @inherit step_center return
 #' @param ... One or more selector functions to choose which
 #'  variables that will be used to create the new features. See
-#'  [selections()] for more details. For the `tidy`
-#'  method, these are not currently used.
+#'  [selections()] for more details.
 #' @param class A single character string that specifies a single
 #'  categorical variable to be used as the class.
 #' @param role For model terms created by this step, what analysis
@@ -33,17 +32,14 @@
 #'  new depth columns. Defaults to `"depth_"`. See Details below.
 #' @param data The training data are stored here once after
 #'  [prep.recipe()] is executed.
-#' @return An updated version of `recipe` with the new step
-#'  added to the sequence of existing steps (if any). For the
-#'  `tidy` method, a tibble with columns `terms` (the
-#'  selectors or variables selected) and `class`.
+#' @template step-return
 #' @keywords datagen
 #' @concept preprocessing
 #' @concept dimension_reduction
 #' @export
 #' @details Data depth metrics attempt to measure how close data a
 #'  data point is to the center of its distribution. There are a
-#'  number of methods for calculating death but a simple example is
+#'  number of methods for calculating depth but a simple example is
 #'  the inverse of the distance of a data point to the centroid of
 #'  the distribution. Generally, small values indicate that a data
 #'  point not close to the centroid. `step_depth` can compute a
@@ -66,6 +62,9 @@
 #'  the `class` variable. The resulting variables will not
 #'  replace the original values and by default have the prefix `depth_`. The
 #'  naming format can be changed using the `prefix` argument.
+#'
+#'  When you [`tidy()`] this step, a tibble with columns `terms` (the
+#'  selectors or variables selected) and `class` is returned.
 #'
 #' @examples
 #'
@@ -205,7 +204,7 @@ print.step_depth <-
 
 
 
-#' @rdname step_depth
+#' @rdname tidy.recipe
 #' @param x A `step_depth` object.
 #' @export
 tidy.step_depth <- function(x, ...) {

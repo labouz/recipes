@@ -6,8 +6,7 @@
 #' @param recipe A recipe object. The step will be added to the sequence of
 #'  operations for this recipe.
 #' @param ... One or more selector functions to choose which variables are
-#'  affected by the step. See [selections()] for more details. For the `tidy`
-#'  method, these are not currently used.
+#'  affected by the step. See [selections()] for more details.
 #' @param role Not used by this step since no new variables are created.
 #' @param trained A logical to indicate if the quantities for preprocessing
 #'  have been estimated.
@@ -21,8 +20,7 @@
 #'  processing the outcome variable(s)). Care should be taken when using `skip =
 #'  TRUE` as it may affect the computations for subsequent operations
 #' @param id A character string that is unique to this step to identify it.
-#' @return An updated version of `recipe` with the new step added to the
-#'  sequence of existing steps (if any).
+#' @template step-return
 #' @keywords datagen
 #' @concept preprocessing
 #' @export
@@ -209,7 +207,7 @@ print.step_cut <-
     invisible(x)
   }
 
-#' @rdname step_cut
+#' @rdname tidy.recipe
 #' @param x A `step_cut` object.
 #' @export
 tidy.step_cut <- function(x, ...) {

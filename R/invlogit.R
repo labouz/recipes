@@ -7,16 +7,12 @@
 #' @inheritParams step_center
 #' @param ... One or more selector functions to choose which
 #'  variables are affected by the step. See [selections()]
-#'  for more details. For the `tidy` method, these are not
-#'  currently used.
+#'  for more details.
 #' @param role Not used by this step since no new variables are
 #'  created.
 #' @param columns A character string of variable names that will
 #'  be populated (eventually) by the `terms` argument.
-#' @return An updated version of `recipe` with the new step
-#'  added to the sequence of existing steps (if any). For the
-#'  `tidy` method, a tibble with columns `terms` which
-#'  is the columns that will be affected.
+#' @template step-return
 #' @keywords datagen
 #' @concept preprocessing
 #' @concept transformation_methods
@@ -24,6 +20,9 @@
 #' @details The inverse logit transformation takes values on the
 #'  real line and translates them to be between zero and one using
 #'  the function `f(x) = 1/(1+exp(-x))`.
+#'
+#'  When you [`tidy()`] this step, a tibble with columns `terms`
+#'  (the columns that will be affected) is returned.
 #' @examples
 #' library(modeldata)
 #' data(biomass)
@@ -107,7 +106,7 @@ print.step_invlogit <-
     invisible(x)
   }
 
-#' @rdname step_invlogit
+#' @rdname tidy.recipe
 #' @param x A `step_invlogit` object.
 #' @export
 tidy.step_invlogit <- function(x, ...) {

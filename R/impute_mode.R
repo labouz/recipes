@@ -7,17 +7,14 @@
 #' @inheritParams step_center
 #' @param ... One or more selector functions to choose which
 #'  variables are affected by the step. See [selections()]
-#'  for more details. For the `tidy` method, these are not
-#'  currently used.
+#'  for more details.
 #' @param role Not used by this step since no new variables are
 #'  created.
 #' @param modes A named character vector of modes. This is
 #'  `NULL` until computed by [prep.recipe()].
-#' @return An updated version of `recipe` with the new step
-#'  added to the sequence of existing steps (if any). For the
-#'  `tidy` method, a tibble with columns `terms` (the
-#'  selectors or variables selected) and `model` (the mode
-#'  value).
+#' @param ptype A data frame prototype to cast new data sets to. This is
+#'  commonly a 0-row slice of the training set.
+#' @template step-return
 #' @keywords datagen
 #' @concept preprocessing
 #' @concept imputation
@@ -27,6 +24,10 @@
 #'  `prep.recipe`. `bake.recipe` then applies the new
 #'  values to new data sets using these values. If the training set
 #'  data has more than one mode, one is selected at random.
+#'
+#' When you [`tidy()`] this step, a tibble with columns `terms` (the
+#'  selectors or variables selected) and `model` (the mode
+#'  value) is returned.
 #'
 #'  As of `recipes` 0.1.16, this function name changed from `step_modeimpute()`
 #'    to `step_impute_mode()`.
@@ -65,6 +66,7 @@ step_impute_mode <-
            role = NA,
            trained = FALSE,
            modes = NULL,
+           ptype = NULL,
            skip = FALSE,
            id = rand_id("impute_mode")) {
     add_step(
@@ -74,6 +76,7 @@ step_impute_mode <-
         role = role,
         trained = trained,
         modes = modes,
+        ptype = ptype,
         skip = skip,
         id = id
       )
@@ -82,12 +85,14 @@ step_impute_mode <-
 
 #' @rdname step_impute_mode
 #' @export
+#' @keywords internal
 step_modeimpute <-
   function(recipe,
            ...,
            role = NA,
            trained = FALSE,
            modes = NULL,
+           ptype = NULL,
            skip = FALSE,
            id = rand_id("impute_mode")) {
     lifecycle::deprecate_soft(
@@ -101,19 +106,21 @@ step_modeimpute <-
       role = role,
       trained = trained,
       modes = modes,
+      ptype = ptype,
       skip = skip,
       id = id
     )
   }
 
 step_impute_mode_new <-
-  function(terms, role, trained, modes, skip, id) {
+  function(terms, role, trained, modes, ptype, skip, id) {
     step(
       subclass = "impute_mode",
       terms = terms,
       role = role,
       trained = trained,
       modes = modes,
+      ptype = ptype,
       skip = skip,
       id = id
     )
@@ -123,23 +130,37 @@ step_impute_mode_new <-
 prep.step_impute_mode <- function(x, training, info = NULL, ...) {
   col_names <- eval_select_recipes(x$terms, training, info)
   modes <- vapply(training[, col_names], mode_est, c(mode = ""))
+  ptype <- vec_slice(training[, col_names], 0)
   step_impute_mode_new(
     terms = x$terms,
     role = x$role,
     trained = TRUE,
     modes = modes,
+    ptype = ptype,
     skip = x$skip,
     id = x$id
   )
 }
 
 #' @export
+#' @keywords internal
 prep.step_modeimpute <- prep.step_impute_mode
 
 #' @export
 bake.step_impute_mode <- function(object, new_data, ...) {
+
   for (i in names(object$modes)) {
     if (any(is.na(new_data[, i]))) {
+      if(is.null(object$ptype)) {
+        rlang::warn(
+          paste0(
+            "'ptype' was added to `step_impute_mode()` after this recipe was created.\n",
+            "Regenerate your recipe to avoid this warning."
+          )
+        )
+      } else {
+        new_data[[i]] <- vec_cast(new_data[[i]], object$ptype[[i]])
+      }
       mode_val <- cast(object$modes[[i]], new_data[[i]])
       new_data[is.na(new_data[[i]]), i] <- mode_val
     }
@@ -148,6 +169,7 @@ bake.step_impute_mode <- function(object, new_data, ...) {
 }
 
 #' @export
+#' @keywords internal
 bake.step_modeimpute <- bake.step_impute_mode
 
 #' @export
@@ -159,6 +181,7 @@ print.step_impute_mode <-
   }
 
 #' @export
+#' @keywords internal
 print.step_modeimpute <- print.step_impute_mode
 
 mode_est <- function(x) {
@@ -169,7 +192,7 @@ mode_est <- function(x) {
   sample(modes, size = 1)
 }
 
-#' @rdname step_impute_mode
+#' @rdname tidy.recipe
 #' @param x A `step_impute_mode` object.
 #' @export
 tidy.step_impute_mode <- function(x, ...) {
@@ -185,4 +208,5 @@ tidy.step_impute_mode <- function(x, ...) {
 }
 
 #' @export
+#' @keywords internal
 tidy.step_modeimpute <- tidy.step_impute_mode

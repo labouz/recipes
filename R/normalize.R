@@ -7,8 +7,7 @@
 #' @inheritParams step_center
 #' @param ... One or more selector functions to choose which
 #'  variables are affected by the step. See [selections()]
-#'  for more details. For the `tidy` method, these are not
-#'  currently used.
+#'  for more details.
 #' @param role Not used by this step since no new variables are
 #'  created.
 #' @param means A named numeric vector of means. This is
@@ -17,11 +16,7 @@
 #'  is `NULL` until computed by [prep.recipe()].
 #' @param na_rm A logical value indicating whether `NA`
 #'  values should be removed when computing the standard deviation and mean.
-#' @return An updated version of `recipe` with the new step
-#'  added to the sequence of existing steps (if any). For the
-#'  `tidy` method, a tibble with columns `terms` (the
-#'  selectors or variables selected), `value` (the
-#'  standard deviations and means), and `statistic` for the type of value.
+#' @template step-return
 #' @keywords datagen
 #' @concept preprocessing
 #' @concept normalization_methods
@@ -30,8 +25,13 @@
 #'  from the data. Scaling data means that the standard deviation of a variable
 #'  is divided out of the data. `step_normalize` estimates the variable standard
 #'  deviations and means from the data used in the `training` argument of
-#'  `prep.recipe`. `bake.recipe` then applies the scaling to new data sets using
+#'  `prep.recipe`. [`bake.recipe`] then applies the scaling to new data sets using
 #'  these estimates.
+#'
+#'  When you [`tidy()`] this step, a tibble with columns `terms` (the
+#'  selectors or variables selected), `value` (the standard deviations and
+#'  means), and `statistic` for the type of value is returned.
+#'
 #' @examples
 #' library(modeldata)
 #' data(biomass)
@@ -140,7 +140,7 @@ print.step_normalize <-
   }
 
 
-#' @rdname step_normalize
+#' @rdname tidy.recipe
 #' @param x A `step_normalize` object.
 #' @export
 tidy.step_normalize <- function(x, ...) {

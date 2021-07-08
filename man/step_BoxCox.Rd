@@ -2,7 +2,6 @@
 % Please edit documentation in R/BoxCox.R
 \name{step_BoxCox}
 \alias{step_BoxCox}
-\alias{tidy.step_BoxCox}
 \title{Box-Cox Transformation for Non-Negative Data}
 \usage{
 step_BoxCox(
@@ -16,8 +15,6 @@ step_BoxCox(
   skip = FALSE,
   id = rand_id("BoxCox")
 )
-
-\method{tidy}{step_BoxCox}(x, ...)
 }
 \arguments{
 \item{recipe}{A recipe object. The step will be added to the
@@ -25,8 +22,7 @@ sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose which
 variables are affected by the step. See \code{\link[=selections]{selections()}}
-for more details. For the \code{tidy} method, these are not
-currently used.}
+for more details.}
 
 \item{role}{Not used by this step since no new variables are
 created.}
@@ -40,8 +36,8 @@ is \code{NULL} until computed by \code{\link[=prep.recipe]{prep.recipe()}}.}
 \item{limits}{A length 2 numeric vector defining the range to
 compute the transformation parameter lambda.}
 
-\item{num_unique}{An integer where data that have less possible
-values will not be evaluated for a transformation.}
+\item{num_unique}{An integer to specify minimum required unique
+values to evaluate for a transformation.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[=bake.recipe]{bake.recipe()}}? While all operations are baked
@@ -51,15 +47,10 @@ Care should be taken when using \code{skip = TRUE} as it may affect
 the computations for subsequent operations}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_BoxCox} object.}
 }
 \value{
-An updated version of \code{recipe} with the new step
-added to the sequence of existing steps (if any). For the
-\code{tidy} method, a tibble with columns \code{terms} (the
-selectors or variables selected) and \code{value} (the
-lambda estimate).
+An updated version of \code{recipe} with the new step added to the
+sequence of any existing steps.
 }
 \description{
 \code{step_BoxCox} creates a \emph{specification} of a recipe
@@ -84,6 +75,10 @@ variable distributions more symmetric.
 If the transformation parameters are estimated to be very
 closed to the bounds, or if the optimization fails, a value of
 \code{NA} is used and no transformation is applied.
+
+When you \code{\link[=tidy]{tidy()}} this step, a tibble with columns \code{terms} (the
+selectors or variables selected) and \code{value} (the
+lambda estimate) is returned.
 }
 \examples{
 

@@ -12,9 +12,9 @@
 #'  columns created by the original variables will be used as predictors in a
 #'  model.
 #' @param inputs A vector of column names populated by `prep()`.
-#' @return An updated version of `recipe` with the new step added to the
-#'  sequence of existing steps (if any). For the `tidy` method, a tibble with
-#'  columns `terms` which contains the columns being transformed.
+#' @template step-return
+#' @details When you [`tidy()`] this step, a tibble with
+#'  column `terms` which contains the columns being transformed is returned.
 #' @keywords datagen
 #' @concept preprocessing
 #' @concept transformation_methods
@@ -100,7 +100,7 @@ print.step_mutate_at <-
     invisible(x)
   }
 
-#' @rdname step_mutate
+#' @rdname tidy.recipe
 #' @export
 tidy.step_mutate_at <- function(x, ...) {
   if (is_trained(x)) {

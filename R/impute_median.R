@@ -6,16 +6,12 @@
 #'
 #' @inheritParams step_center
 #' @param ... One or more selector functions to choose which variables are
-#'  affected by the step. See [selections()] for more details. For the `tidy`
-#'  method, these are not currently used.
+#'  affected by the step. See [selections()] for more details.
 #' @param role Not used by this step since no new variables are created.
 #' @param medians A named numeric vector of medians. This is `NULL` until
 #'  computed by [prep.recipe()]. Note that, if the original data are integers,
 #'  the median will be converted to an integer to maintain the same data type.
-#' @return An updated version of `recipe` with the new step added to the
-#'  sequence of existing steps (if any). For the `tidy` method, a tibble with
-#'  columns `terms` (the selectors or variables selected) and `model` (the
-#'  median value).
+#' @template step-return
 #' @keywords datagen
 #' @concept preprocessing
 #' @concept imputation
@@ -23,6 +19,10 @@
 #' @details `step_impute_median` estimates the variable medians from the data
 #'  used in the `training` argument of `prep.recipe`. `bake.recipe` then applies
 #'  the new values to new data sets using these medians.
+#'
+#' When you [`tidy()`] this step, a tibble with
+#'  columns `terms` (the selectors or variables selected) and `model` (the
+#'  median value) is returned.
 #'
 #'  As of `recipes` 0.1.16, this function name changed from
 #'    `step_medianimpute()` to `step_impute_median()`.
@@ -79,6 +79,7 @@ step_impute_median <-
 
 #' @rdname step_impute_median
 #' @export
+#' @keywords internal
 step_medianimpute <-
   function(recipe,
            ...,
@@ -136,18 +137,21 @@ prep.step_impute_median <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
+#' @keywords internal
 prep.step_medianimpute <- prep.step_impute_median
 
 #' @export
 bake.step_impute_median <- function(object, new_data, ...) {
   for (i in names(object$medians)) {
     if (any(is.na(new_data[[i]])))
+      new_data[[i]] <- vec_cast(new_data[[i]], object$medians[[i]])
       new_data[is.na(new_data[[i]]), i] <- object$medians[[i]]
   }
   as_tibble(new_data)
 }
 
 #' @export
+#' @keywords internal
 bake.step_medianimpute <- bake.step_impute_median
 
 #' @export
@@ -159,9 +163,10 @@ print.step_impute_median <-
   }
 
 #' @export
+#' @keywords internal
 print.step_medianimpute <- print.step_impute_median
 
-#' @rdname step_impute_median
+#' @rdname tidy.recipe
 #' @param x A `step_impute_median` object.
 #' @export
 tidy.step_impute_median <- function(x, ...) {
@@ -177,4 +182,5 @@ tidy.step_impute_median <- function(x, ...) {
 }
 
 #' @export
+#' @keywords internal
 tidy.step_medianimpute <- tidy.step_impute_median

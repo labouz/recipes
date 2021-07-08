@@ -2,17 +2,14 @@
 #'
 #' `step_impute_bag` creates a *specification* of a recipe step that will
 #'  create bagged tree models to impute missing data.
-
 #'
 #' @inheritParams step_center
 #' @inherit step_center return
 #' @param ... One or more selector functions to choose variables. For
 #'  `step_impute_bag`, this indicates the variables to be imputed. When used
 #'  with `imp_vars`, the dots indicate which variables are used to predict the
-#'  missing data in each variable. See [selections()] for more details. For the
-#'  `tidy` method, these are not currently used.
+#'  missing data in each variable. See [selections()] for more details.
 #' @param role Not used by this step since no new variables are created.
-
 #' @param impute_with A call to `imp_vars` to specify which variables are used
 #'  to impute the variables that can include specific variable names separated
 #'  by commas or different selectors (see [selections()]). If a column is
@@ -26,10 +23,7 @@
 #'  is used across all imputation models.
 #' @param models The [ipred::ipredbagg()] objects are stored here once this
 #'  bagged trees have be trained by [prep.recipe()].
-#' @return An updated version of `recipe` with the new step added to the
-#'  sequence of existing steps (if any). For the `tidy` method, a tibble with
-#'  columns `terms` (the selectors or variables selected) and `model` (the
-#'  bagged tree object).
+#' @template step-return
 #' @keywords datagen
 #' @concept preprocessing
 #' @concept imputation
@@ -47,6 +41,9 @@
 #'
 #'   It is possible that missing values will still occur after imputation if a
 #'  large majority (or all) of the imputing variables are also missing.
+#'
+#'  When you [`tidy()`] this step, a tibble with columns `terms` (the selectors
+#'  or variables selected) and `model` (the bagged tree object) is returned.
 #'
 #'  As of `recipes` 0.1.16, this function name changed from `step_bagimpute()`
 #'    to `step_impute_bag()`.
@@ -133,6 +130,7 @@ step_impute_bag <-
 
 #' @rdname step_impute_bag
 #' @export
+#' @keywords internal
 step_bagimpute <-
   function(recipe,
            ...,
@@ -248,6 +246,7 @@ prep.step_impute_bag <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
+#' @keywords internal
 prep.step_bagimpute <- prep.step_impute_bag
 
 #' @export
@@ -269,6 +268,7 @@ bake.step_impute_bag <- function(object, new_data, ...) {
       } else {
         pred_vals <- predict(object$models[[imp_var]], pred_data)
         pred_vals <- cast(pred_vals, new_data[[imp_var]])
+        new_data[[imp_var]] <- vec_cast(new_data[[imp_var]], pred_vals)
         new_data[missing_rows, imp_var] <- pred_vals
       }
     }
@@ -278,6 +278,7 @@ bake.step_impute_bag <- function(object, new_data, ...) {
 }
 
 #' @export
+#' @keywords internal
 bake.step_bagimpute <- bake.step_impute_bag
 
 #' @export
@@ -289,13 +290,14 @@ print.step_impute_bag <-
   }
 
 #' @export
+#' @keywords internal
 print.step_bagimpute <- print.step_impute_bag
 
 #' @export
 #' @rdname step_impute_bag
 imp_vars <- function(...) quos(...)
 
-#' @rdname step_impute_bag
+#' @rdname tidy.recipe
 #' @param x A `step_impute_bag` object.
 #' @export
 tidy.step_impute_bag <- function(x, ...) {
@@ -311,6 +313,7 @@ tidy.step_impute_bag <- function(x, ...) {
 }
 
 #' @export
+#' @keywords internal
 tidy.step_bagimpute <- tidy.step_impute_bag
 
 # ------------------------------------------------------------------------------

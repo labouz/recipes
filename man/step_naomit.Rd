@@ -2,7 +2,6 @@
 % Please edit documentation in R/naomit.R
 \name{step_naomit}
 \alias{step_naomit}
-\alias{tidy.step_naomit}
 \title{Remove observations with missing values}
 \usage{
 step_naomit(
@@ -14,8 +13,6 @@ step_naomit(
   skip = FALSE,
   id = rand_id("naomit")
 )
-
-\method{tidy}{step_naomit}(x, ...)
 }
 \arguments{
 \item{recipe}{A recipe object. The step will be added to the sequence of
@@ -40,12 +37,10 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_naomit} object.}
 }
 \value{
-An updated version of \code{recipe} with the
-new step added to the sequence of existing steps (if any).
+An updated version of \code{recipe} with the new step added to the
+sequence of any existing steps.
 }
 \description{
 \code{step_naomit} creates a \emph{specification} of a recipe step that

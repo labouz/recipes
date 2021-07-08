@@ -1,5 +1,15 @@
 # recipes (development version)
 
+* When only the terms attributes are desired from `model.frame` use the first row of data to improve speed and memory use (#726).
+
+* Use Haversine formula for latitude-longitude pairs in step_geodist (#725).
+
+* Reorganize documentation for all recipe step `tidy` methods (#701).
+
+* Generate warning when user attempts a Box-Cox transformation of non-positive data (@LiamBlake, #713).
+
+* Fix imputation steps for new data that is all `NA`, and generate a warning for recipes created under previous versions that cannot be imputed with this fix (#719).
+
 # recipes 0.1.16
 
 ## New Steps

@@ -7,8 +7,7 @@
 #' @template row-ops
 #' @inheritParams step_center
 #' @param ... Argument ignored; included for consistency with other step
-#'  specification functions. For the `tidy`
-#'  method, these are not currently used.
+#'  specification functions.
 #' @param role Not used by this step since no new variables are
 #'  created.
 #' @param size An integer or fraction. If the value is within (0, 1),
@@ -22,10 +21,9 @@
 #'  conducted on new data (e.g. processing the outcome variable(s)).
 #'  Care should be taken when using `skip = FALSE`.
 #' @param replace Sample with or without replacement?
-#' @return An updated version of `recipe` with the new step
-#'  added to the sequence of existing steps (if any). For the
-#'  `tidy` method, a tibble with columns `size`, `replace`,
-#'  and `id`.
+#' @template step-return
+#' @details When you [`tidy()`] this step, a tibble with columns `size`,
+#' `replace`, and `id` is returned.
 #' @keywords datagen
 #' @concept preprocessing
 #' @export
@@ -153,7 +151,7 @@ print.step_sample <-
   }
 
 
-#' @rdname step_sample
+#' @rdname tidy.recipe
 #' @param x A `step_sample` object
 #' @export
 tidy.step_sample <- function(x, ...) {

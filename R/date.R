@@ -10,7 +10,6 @@
 #'  variables that will be used to create the new variables. The
 #'  selected variables should have class `Date` or
 #'  `POSIXct`. See [selections()] for more details.
-#'  For the `tidy` method, these are not currently used.
 #' @param role For model terms created by this step, what analysis
 #'  role should they be assigned?. By default, the function assumes
 #'  that the new variable columns created by the original variables
@@ -38,11 +37,7 @@
 #'  populated once [prep.recipe()] is used.
 #' @param keep_original_cols A logical to keep the original variables in the
 #'  output. Defaults to `TRUE`.
-#' @return For `step_date`, an updated version of recipe with
-#'  the new step added to the sequence of existing steps (if any).
-#'  For the `tidy` method, a tibble with columns `terms`
-#'  (the selectors or variables selected), `value` (the feature
-#'  names), and `ordinal` (a logical).
+#' @template step-return
 #' @keywords datagen
 #' @concept preprocessing
 #' @concept model_specification
@@ -52,6 +47,10 @@
 #' @details Unlike some other steps, `step_date` does *not*
 #'  remove the original date variables by default. Set `keep_original_cols`
 #'  to `FALSE` to remove them.
+#'
+#'  When you [`tidy()`] this step, a tibble with columns `terms`
+#'  (the selectors or variables selected), `value` (the feature
+#'  names), and `ordinal` (a logical) is returned.
 #'
 #' @examples
 #' library(lubridate)
@@ -276,7 +275,7 @@ print.step_date <-
     invisible(x)
   }
 
-#' @rdname step_date
+#' @rdname tidy.recipe
 #' @param x A `step_date` object.
 #' @export
 tidy.step_date <- function(x, ...) {

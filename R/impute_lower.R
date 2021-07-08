@@ -9,17 +9,12 @@
 #' @inheritParams step_center
 #' @param ... One or more selector functions to choose which
 #'  variables are affected by the step. See [selections()]
-#'  for more details. For the `tidy` method, these are not
-#'  currently used.
+#'  for more details.
 #' @param role Not used by this step since no new variables are
 #'  created.
 #' @param threshold A named numeric vector of lower bounds. This is
 #'  `NULL` until computed by [prep.recipe()].
-#' @return An updated version of `recipe` with the new step
-#'  added to the sequence of existing steps (if any). For the
-#'  `tidy` method, a tibble with columns `terms` (the
-#'  selectors or variables selected) and `value` for the estimated
-#'  threshold.
+#' @template step-return
 #' @keywords datagen
 #' @concept preprocessing
 #' @concept imputation
@@ -28,6 +23,10 @@
 #'  from the data used in the `training` argument of `prep.recipe`.
 #'  `bake.recipe` then simulates a value for any data at the minimum
 #'  with a random uniform value between zero and the minimum.
+#'
+#' When you [`tidy()`] this step, a tibble with columns `terms` (the
+#'  selectors or variables selected) and `value` for the estimated
+#'  threshold is returned.
 #'
 #'  As of `recipes` 0.1.16, this function name changed from `step_lowerimpute()`
 #'    to `step_impute_lower()`.
@@ -86,6 +85,7 @@ step_impute_lower <-
 
 #' @rdname step_impute_lower
 #' @export
+#' @keywords internal
 step_lowerimpute <- function(recipe,
                              ...,
                              role = NA,
@@ -150,6 +150,7 @@ prep.step_impute_lower <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
+#' @keywords internal
 prep.step_lowerimpute <- prep.step_impute_lower
 
 #' @export
@@ -164,6 +165,7 @@ bake.step_impute_lower <- function(object, new_data, ...) {
 }
 
 #' @export
+#' @keywords internal
 bake.step_lowerimpute <- bake.step_impute_lower
 
 #' @export
@@ -175,9 +177,10 @@ print.step_impute_lower <-
   }
 
 #' @export
+#' @keywords internal
 print.step_lowerimpute <- print.step_impute_lower
 
-#' @rdname step_impute_lower
+#' @rdname tidy.recipe
 #' @param x A `step_impute_lower` object.
 #' @export
 tidy.step_impute_lower <- function(x, ...) {
@@ -193,4 +196,5 @@ tidy.step_impute_lower <- function(x, ...) {
 }
 
 #' @export
+#' @keywords internal
 tidy.step_lowerimpute <- tidy.step_impute_lower

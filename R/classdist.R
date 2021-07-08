@@ -8,8 +8,7 @@
 #' @inheritParams step_center
 #' @param ... One or more selector functions to choose which
 #'  variables are affected by the step. See [selections()]
-#'  for more details. For the `tidy` method, these are not
-#'  currently used.
+#'  for more details.
 #' @param class A single character string that specifies a single
 #'  categorical variable to be used as the class.
 #' @param role For model terms created by this step, what analysis
@@ -26,11 +25,7 @@
 #'  new distance columns. Defaults to `"classdist_"`. See Details below.
 #' @param objects Statistics are stored here once this step has
 #'  been trained by [prep.recipe()].
-#' @return An updated version of `recipe` with the new step
-#'  added to the sequence of existing steps (if any). For the
-#'  `tidy` method, a tibble with columns `terms` (the
-#'  selectors or variables selected), `value` (the centroid of
-#'  the class), and `class`.
+#' @template step-return
 #' @keywords datagen
 #' @concept preprocessing
 #' @concept dimension_reduction
@@ -46,6 +41,11 @@
 #'  listed in the `terms` argument. If `pool = TRUE`,
 #'  there must be at least as many data points are variables
 #'  overall.
+#'
+#' When you [`tidy()`] this step, a tibble with columns `terms` (the
+#'  selectors or variables selected), `value` (the centroid of
+#'  the class), and `class` is returned.
+#'
 #' @examples
 #'
 #' # in case of missing data...
@@ -222,7 +222,7 @@ get_centroid <- function(x) {
          value = unname(x$center))
 }
 
-#' @rdname step_classdist
+#' @rdname tidy.recipe
 #' @param x A `step_classdist` object.
 #' @export
 tidy.step_classdist <- function(x, ...) {

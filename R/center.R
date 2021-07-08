@@ -7,8 +7,7 @@
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose which
 #'  variables are affected by the step. See [selections()]
-#'  for more details. For the `tidy` method, these are not
-#'  currently used.
+#'  for more details.
 #' @param role Not used by this step since no new variables are
 #'  created.
 #' @param trained A logical to indicate if the quantities for
@@ -24,10 +23,7 @@
 #'  Care should be taken when using `skip = TRUE` as it may affect
 #'  the computations for subsequent operations
 #' @param id A character string that is unique to this step to identify it.
-#' @return An updated version of `recipe` with the new step
-#'  added to the sequence of existing steps (if any). For the
-#'  `tidy` method, a tibble with columns `terms` (the
-#'  selectors or variables selected) and `value` (the means).
+#' @template step-return
 #'
 #' @keywords datagen
 #' @concept preprocessing
@@ -38,6 +34,9 @@
 #'  variable means from the data used in the `training`
 #'  argument of `prep.recipe`. `bake.recipe` then applies
 #'  the centering to new data sets using these means.
+#'
+#'  When you [`tidy()`] this step, a tibble with columns `terms` (the
+#'  selectors or variables selected) and `value` (the means) is returned.
 #'
 #' @examples
 #' library(modeldata)
@@ -136,7 +135,7 @@ print.step_center <-
   }
 
 
-#' @rdname step_center
+#' @rdname tidy.recipe
 #' @param x A `step_center` object.
 #' @export
 tidy.step_center <- function(x, ...) {

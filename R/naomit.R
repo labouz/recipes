@@ -23,8 +23,7 @@
 #'
 #' @template row-ops
 #' @rdname step_naomit
-#' @return An updated version of `recipe` with the
-#'   new step added to the sequence of existing steps (if any).
+#' @template step-return
 #' @export
 #'
 #' @examples
@@ -88,7 +87,7 @@ print.step_naomit <-
     invisible(x)
   }
 
-#' @rdname step_naomit
+#' @rdname tidy.recipe
 #' @param x A `step_naomit` object.
 #' @export
 tidy.step_naomit <- function(x, ...) {

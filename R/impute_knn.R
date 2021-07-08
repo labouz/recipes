@@ -8,8 +8,7 @@
 #' @param ... One or more selector functions to choose variables. For
 #'  `step_impute_knn`, this indicates the variables to be imputed. When used
 #'  with `imp_vars`, the dots indicate which variables are used to predict the
-#'  missing data in each variable. See [selections()] for more details. For the
-#'  `tidy` method, these are not currently used.
+#'  missing data in each variable. See [selections()] for more details.
 #' @param role Not used by this step since no new variables are created.
 #' @param impute_with A call to `imp_vars` to specify which variables are used
 #'  to impute the variables that can include specific variable names separated
@@ -24,10 +23,7 @@
 #'  is trained by [prep.recipe()].
 #' @param columns The column names that will be imputed and used for
 #'  imputation. This is `NULL` until the step is trained by [prep.recipe()].
-#' @return An updated version of `recipe` with the new step added to the
-#'  sequence of existing steps (if any). For the `tidy` method, a tibble with
-#'  columns `terms` (the selectors or variables for imputation), `predictors`
-#'  (those variables used to impute), and `neighbors`.
+#' @template step-return
 #' @keywords datagen
 #' @concept preprocessing
 #' @concept imputation
@@ -45,6 +41,10 @@
 #'
 #' It is possible that missing values will still occur after imputation if a
 #'  large majority (or all) of the imputing variables are also missing.
+#'
+#' When you [`tidy()`] this step, a tibble with
+#'  columns `terms` (the selectors or variables for imputation), `predictors`
+#'  (those variables used to impute), and `neighbors` is returned.
 #'
 #' As of `recipes` 0.1.16, this function name changed from `step_knnimpute()`
 #'    to `step_impute_knn()`.
@@ -140,6 +140,7 @@ step_impute_knn <-
 
 #' @rdname step_impute_knn
 #' @export
+#' @keywords internal
 step_knnimpute <-
   function(recipe,
            ...,
@@ -217,6 +218,7 @@ prep.step_impute_knn <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
+#' @keywords internal
 prep.step_knnimpute <- prep.step_impute_knn
 
 nn_index <- function(miss_data, ref_data, vars, K, opt) {
@@ -266,6 +268,7 @@ bake.step_impute_knn <- function(object, new_data, ...) {
         pred_vals <-
           apply(nn_ind, 2, nn_pred, dat = object$ref_data[imp_var_complete, imp_var])
         pred_vals <- cast(pred_vals, object$ref_data[[imp_var]])
+        new_data[[imp_var]] <- vec_cast(new_data[[imp_var]], pred_vals)
         new_data[missing_rows, imp_var] <- pred_vals
       }
     }
@@ -274,6 +277,7 @@ bake.step_impute_knn <- function(object, new_data, ...) {
 }
 
 #' @export
+#' @keywords internal
 bake.step_knnimpute <- bake.step_impute_knn
 
 #' @export
@@ -287,9 +291,10 @@ print.step_impute_knn <-
   }
 
 #' @export
+#' @keywords internal
 print.step_knnimpute <- print.step_impute_knn
 
-#' @rdname step_impute_knn
+#' @rdname tidy.recipe
 #' @param x A `step_impute_knn` object.
 #' @export
 tidy.step_impute_knn <- function(x, ...) {
@@ -313,6 +318,7 @@ tidy.step_impute_knn <- function(x, ...) {
 }
 
 #' @export
+#' @keywords internal
 tidy.step_knnimpute <- tidy.step_impute_knn
 
 #' @rdname tunable.step
@@ -328,4 +334,5 @@ tunable.step_impute_knn <- function(x, ...) {
 }
 
 #' @export
+#' @keywords internal
 tunable.step_knnimpute <- tunable.step_impute_knn
